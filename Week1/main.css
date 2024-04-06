@@ -102,7 +102,7 @@ display:none;
 }
 .welcome{
   display:flex;
-  background-color:rgb(231, 217, 200);
+  background-color:lightblue;
   min-height: 250px;
   justify-content:center;
   align-items:center;
