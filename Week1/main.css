@@ -261,7 +261,11 @@ img.small {
   .boxes{
     width: 90%;
   }
-
+  nav ul.sidebar li:first-child {
+    text-align: left;
+    display: flex;
+    justify-content: flex-end;
+  }
   .row {
       display:block;
       margin-top: 10px;
