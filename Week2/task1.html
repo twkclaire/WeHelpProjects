@@ -1,0 +1,97 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HTML 5 Boilerplate</title>
+</head>
+
+<body>
+  <script>
+    const stationPositions = {
+      "Songshan": 0,
+      "Nanjing Sanmin": 1,
+      "Taipei Arena": 2,
+      "Nanjing Fuxing": 3,
+      "Songjiang Nanjing": 4,
+      "Zhongshan": 5,
+      "Beimen": 6,
+      "Ximen": 7,
+      "Xiaonanmen": 8,
+      "Chiang Kai-shek Memorial Hall": 9,
+      "Guting": 10,
+      "Taipower Building": 11,
+      "Gongguan": 12,
+      "Wanlong": 13,
+      "Jingmei": 14,
+      "Dapinglin": 15,
+      "Qizhang": 100,
+      "Xiaobitan": 100,
+      "Xindian City Hall": 17,
+      "Xindian": 18
+    };
+
+    const messages = {
+      "Leslie": "I'm at home near Xiaobitan station.",
+      "Bob": "I'm at Ximen MRT station.",
+      "Mary": "I have a drink near Jingmei MRT station.",
+      "Copper": "I just saw a concert at Taipei Arena.",
+      "Vivian": "I'm at Xindian station waiting for you."
+    };
+
+    function findAndPrint(messages, currentStation) {
+      function getCurrentStation(currentStation) {
+        for (let myStation in stationPositions) {
+          if (myStation === currentStation) {
+            return stationPositions[myStation];
+          }
+        }
+      }
+
+      function getStation(message) {
+        for (let station in stationPositions) {
+          if (message.includes(station)) {
+            return [station, stationPositions[station]];
+          }
+        }
+      }
+
+      const currentPosition = getCurrentStation(currentStation);
+      const updateList = [];
+
+      for (let name in messages) {
+        const [station, position] = getStation(messages[name]);
+        updateList.push([name, station, position]);
+      }
+
+      let ourDistance = 0;
+      let closestFriend = 0;
+      let closestDistance = 100;
+
+      for (let [people, location, far] of updateList) {
+        ourDistance = Math.abs(currentPosition - far);
+        if (ourDistance < closestDistance) {
+          closestDistance = ourDistance;
+          closestFriend = people;
+        }
+      }
+
+      console.log(closestFriend);
+    }
+
+    findAndPrint(messages, "Wanlong"); // print Mary 
+    findAndPrint(messages, "Songshan"); // print Copper 
+    findAndPrint(messages, "Qizhang"); // print Leslie 
+    findAndPrint(messages, "Ximen"); // print Bob 
+    findAndPrint(messages, "Xindian City Hall"); // print Vivian
+
+  </script>
+</body>
+<!-- found the aligment tool shift + option + F
+ont thing I can't seem to debug. When setting up getStation as single function, console kept retunnning messsage is not a string. But his doesn't happen again once it's pass in another fucntion. Weird
+key value pair access is different in js and python. I am still not use to looping in js only needing to write the key
+if it's a list, don't fotget the []
+[] could be a list or []helping you to access the value in the key  -->
+
+</html>

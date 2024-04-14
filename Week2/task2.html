@@ -1,0 +1,98 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+  </head>
+  <body>
+	<script>
+        const consultants = [
+            { name: "John", rate: 4.5, price: 1000 },
+            { name: "Bob", rate: 3, price: 1200 },
+            { name: "Jenny", rate: 3.8, price: 800 }
+    ];
+
+    for (const consultant of consultants) {
+    consultant.time = [];
+    }
+
+    function book(consultants, hour, duration, criteria) {
+
+    const bookingTimeStart = hour;
+    const bookingHour = duration;
+    let bookingTimeRange = [];
+    let bookingTimeMid = 0;
+    let bookingTimeEnd = 0;
+    const availableConsultant = [];
+
+
+    if (duration === 1) {
+        bookingTimeEnd = hour;
+        bookingTimeRange = [hour];
+    } else if (duration === 2) {
+        bookingTimeEnd = hour + duration - 1;
+        bookingTimeRange = [hour, bookingTimeEnd];
+    } else if (duration === 3) {
+        bookingTimeEnd = hour + duration - 1;
+        bookingTimeMid = hour + 1;
+        bookingTimeRange = [hour, bookingTimeMid, bookingTimeEnd];
+    }
+
+    for (const freeConsultant of consultants) {
+        if (
+        !freeConsultant.time.includes(hour) &&
+        !freeConsultant.time.includes(bookingTimeEnd) &&
+        !freeConsultant.time.includes(bookingTimeMid)
+        ) {
+        availableConsultant.push(freeConsultant);
+        }
+    }
+console.log(availableConsultant)
+    if (availableConsultant.length !== 0) {
+        if (criteria === "rate") {
+        let maxRate = 0;
+        let bestRatedConsultant = null;
+        for (const ratedConsultant of availableConsultant) {
+            if (ratedConsultant.rate > maxRate) {
+            maxRate = ratedConsultant.rate;
+            bestRatedConsultant = ratedConsultant;
+            }
+        }
+        if (bestRatedConsultant) {
+            const consultantIndex = consultants.indexOf(bestRatedConsultant);
+            consultants[consultantIndex].time.push(...bookingTimeRange);
+            console.log(bestRatedConsultant.name);
+        }
+        }
+
+        if (criteria === "price") {
+        let minPrice = 3000;
+        let cheapestConsultant = null;
+        for (const cheapConsultant of availableConsultant) {
+            if (cheapConsultant.price < minPrice) {
+            minPrice = cheapConsultant.price;
+            cheapestConsultant = cheapConsultant;
+            }
+        }
+        if (cheapestConsultant) {
+            const consultantIndex = consultants.indexOf(cheapestConsultant);
+            consultants[consultantIndex].time.push(...bookingTimeRange);
+            console.log(cheapestConsultant.name);
+        }
+        }
+    } else {
+        console.log("No Service");
+    }
+    }
+
+    book(consultants, 15, 1, "price"); // Jenny 
+    book(consultants, 11, 2, "price"); // Jenny 
+    book(consultants, 10, 2, "price"); // John 
+    book(consultants, 20, 2, "rate"); // John 
+    book(consultants, 11, 1, "rate"); // Bob 
+    book(consultants, 11, 2, "rate"); // No Service 
+    book(consultants, 14, 3, "price"); // John
+    </script>
+  </body>
+</html>
