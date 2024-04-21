@@ -85,8 +85,11 @@ with open(csv_filename, mode='w', newline='', encoding='utf-8') as csv_file:
             if item["Attraction"] ==spotname:
                 district = item["District"]
                 csv_writer.writerow([f"{spotname}", f"{district}", f"{longitude}", f"{latitude}",f"{first_image}"])
-                # print(f"{spotname}, {district}, {longitude}, {latitude},{first_image}")
 
+
+
+
+    
 
 
     
