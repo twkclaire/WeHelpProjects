@@ -19,99 +19,62 @@ with request.urlopen(src2, context=context) as response:
     list2 = data2["data"]
 
 #created list of dictionary for {attractiont} {mrt} {district} ======================================
-mrtlist = []
+
+
+mrt_list = []
+
 for item in list2:
-    mrt = item["MRT"].split('／')[0]
-    districts = item["address"].split(' ')[2][:3]
-    existing_mrts = [list(d.keys())[0] for d in mrtlist]
-    if mrt not in existing_mrts:
-        mrtlist.append({mrt: districts})
+    mrt = item["MRT"]
+    mnumber=item["SERIAL_NO"]
+    mrt_list.append({mnumber:mrt})
+# print(mrt_list)
 
-direction_list = []
+title_list = []
 for item in list1:
-    directions = item["info"]
-    spots = item["stitle"]
-    direction_list.append({spots: directions})
+    title = item["stitle"]
+    number = item["SERIAL_NO"]
+    title_list.append({number: title})
+# print(title_list)
   
-attraction_mrt_list = []
-for attraction in direction_list:
-    attraction_name = list(attraction.keys())[0]
-    attraction_info = list(attraction.values())[0]
-    mrt_found=False #reset after each loop
+mrt_title_list=[]      
 
-    for mrt_station in mrtlist:
-        station_name = list(mrt_station.keys())[0]
-        station_district = list(mrt_station.values())[0]
+mrt_title_list = []
+for mrt_dict in mrt_list:
+    for title_dict in title_list:
+        mnumber = list(mrt_dict.keys())[0]
+        number = list(title_dict.keys())[0]
+        if mnumber == number:
+            mrt = list(mrt_dict.values())[0]
+            title = list(title_dict.values())[0]
+            mrt_title_list.append({mrt: title})
 
-        if station_name in attraction_info:
-            beitou="北投"
-            if station_name != "北投":
-                attraction_mrt_list.append({"Attraction": attraction_name, "MRT": station_name, "District": station_district})
-                mrt_found=True
-                break  # Stop searching for MRT stations once one is found for the attraction
-            else: 
-                attraction_mrt_list.append({"Attraction": attraction_name, "MRT": "新北投", "District": "北投區"})
-                mrt_found=True
-                break
-    if not mrt_found:
-    # Append a dictionary with empty strings if no matching MRT station is found
-       attraction_mrt_list.append({"Attraction": attraction_name, "MRT": "", "District": ""})
+# print(mrt_title_list)
+# print(len(mrt_title_list))
 
-# print(len(attraction_mrt_list))
+mrt_spots_dict = {}
 
-new_list=[]
-for item in attraction_mrt_list:
-    if item["Attraction"] =="北投文物館":
-        item["MRT"]= "北投"
-        new_list=attraction_mrt_list
+for item in mrt_title_list:
+    key = list(item.keys())[0]
+    value = list(item.values())[0]
 
-# for dict in new_list:
-    # print(dict)
-
-
-attraction_groups = {}
-
-for attraction in new_list:
-    mrt_station = attraction["MRT"]
-    if mrt_station not in attraction_groups:
-        attraction_groups[mrt_station] = [attraction["Attraction"]]
+    if key not in mrt_spots_dict:
+        mrt_spots_dict[key] = [value]
     else:
-        attraction_groups[mrt_station].append(attraction["Attraction"])
-print(attraction_groups)
-
-# for mrt_station, attractions in attraction_groups.items():
-#     if len(mrt_station) !=0:
-#         print(f"{mrt_station}: {', '.join(attractions)}")
+        mrt_spots_dict[key].append(value)
     
+print(mrt_spots_dict)
+
 import csv
-
-# csv_filename = "mrt2.csv"
-
-
-    # csv_writer = csv.writer(csv_file)
-    # # # Write each attraction group to the CSV file
-    # # for mrt_station, attractions in attraction_groups.items():
-    # #     if len(mrt_station) !=0:
-    # #         csv_writer.writerow([f"{mrt_station}": f"{', '.join(attractions)}"])
-    # csv_writer.writerow(['MRT Station', 'Attractions'])
-
-    # # Write each attraction group to the CSV file
-    # for mrt_station, attractions in attraction_groups.items():
-    #     if len(mrt_station) != 0:
-    #         attractions_str = ', '.join(attractions)
-    #         csv_writer.writerow([mrt_station, attractions_str])
-
-
-csv_filename = "mrt.csv"
+csv_filename = "mrtlast.csv"
 
 # Determine the maximum number of attractions across all stations
-max_attractions = max(len(attractions) for attractions in attraction_groups.values())
+max_attractions = max(len(attractions) for attractions in mrt_spots_dict.values())
 
 with open(csv_filename, mode='w', newline='', encoding='utf-8') as csv_file:
     csv_writer = csv.writer(csv_file)
 
     # Write each attraction group to the CSV file
-    for mrt_station, attractions in attraction_groups.items():
+    for mrt_station, attractions in mrt_spots_dict.items():
         if len(mrt_station) != 0:
             # Initialize a row with the MRT station
             row = [mrt_station]
