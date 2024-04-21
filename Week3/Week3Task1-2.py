@@ -77,20 +77,53 @@ for attraction in new_list:
         attraction_groups[mrt_station] = [attraction["Attraction"]]
     else:
         attraction_groups[mrt_station].append(attraction["Attraction"])
+print(attraction_groups)
 
-for mrt_station, attractions in attraction_groups.items():
-    if len(mrt_station) !=0:
-        print(f"{mrt_station}: {', '.join(attractions)}")
+# for mrt_station, attractions in attraction_groups.items():
+#     if len(mrt_station) !=0:
+#         print(f"{mrt_station}: {', '.join(attractions)}")
     
 import csv
 
+# csv_filename = "mrt2.csv"
+
+
+    # csv_writer = csv.writer(csv_file)
+    # # # Write each attraction group to the CSV file
+    # # for mrt_station, attractions in attraction_groups.items():
+    # #     if len(mrt_station) !=0:
+    # #         csv_writer.writerow([f"{mrt_station}": f"{', '.join(attractions)}"])
+    # csv_writer.writerow(['MRT Station', 'Attractions'])
+
+    # # Write each attraction group to the CSV file
+    # for mrt_station, attractions in attraction_groups.items():
+    #     if len(mrt_station) != 0:
+    #         attractions_str = ', '.join(attractions)
+    #         csv_writer.writerow([mrt_station, attractions_str])
+
+
 csv_filename = "mrt.csv"
 
-with open(csv_filename, mode='w', newline='', encoding='utf-8') as csv_file:
+# Determine the maximum number of attractions across all stations
+max_attractions = max(len(attractions) for attractions in attraction_groups.values())
 
+with open(csv_filename, mode='w', newline='', encoding='utf-8') as csv_file:
     csv_writer = csv.writer(csv_file)
+
     # Write each attraction group to the CSV file
     for mrt_station, attractions in attraction_groups.items():
-        if len(mrt_station) !=0:
-            csv_writer.writerow([f"{mrt_station}: {', '.join(attractions)}"])
+        if len(mrt_station) != 0:
+            # Initialize a row with the MRT station
+            row = [mrt_station]
+
+            # Add attractions to the row, ensuring each attraction is in a separate column
+            for i in range(max_attractions):
+                if i < len(attractions):
+                    row.append(attractions[i])
+                else:
+                    row.append("")  # Add empty string if there are no more attractions
+
+            # Write the row to the CSV file
+            csv_writer.writerow(row)
+
 
