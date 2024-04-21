@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Week3 task</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="sidebar">
+            <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24"
+                        viewBox="0 -960 960 960" width="26">
+                        <path
+                            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                    </svg></a></li>
+            <li><a href="#">Item 1</a></li>
+            <li><a href="#">Item 2</a></li>
+            <li><a href="#">Item 3</a></li>
+            <li><a href="#">Item 4</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">My Website</a></li>
+            <li class="hideOnMobile"><a href="#">Item 1</a></li>
+            <li class="hideOnMobile"><a href="#">Item 2</a></li>
+            <li class="hideOnMobile"><a href="#">Item 3</a></li>
+            <li class="hideOnMobile"><a href="#">Item 4</a></li>
+            <li class="hideOnDesktop" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
+                        height="26" viewBox="0 -960 960 960" width="24">
+                        <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                    </svg></a></li>
+        </ul>
+    </nav>
+
+    <!-- welcome banner  -->
+    <div class="welcome">
+        <h1>Welcome to my home</h1>
+    </div>
+
+    <!-- Small box promotiom part -->
+
+    <div class="boxes">
+        <div class="row">
+            <div class="column box1 titlesContainer"></div>
+            <div class="column box2 titlesContainer"></div>
+            <div class="column box3 titlesContainer"></div>
+        </div>
+    </div>
+
+        <!-- Big box with title and coin -->
+<div class="outer-container">
+    <div class="container">
+      <div class="big item1">
+        <p class="coin">&#11088;</p>
+      </div>
+      <div class="big item2">
+        <p class="coin">&#11088;</p>
+      </div>      
+      <div class="big item3">
+        <p class="coin">&#11088;</p>
+      </div>      
+      <div class="big item4">
+        <p class="coin">&#11088;</p>
+      </div>      
+      <div class="big item5">
+        <p class="coin">&#11088;</p>
+      </div>
+      <div class="big item6">
+        <p class="coin">&#11088;</p>
+      </div>
+      <div class="big item7">
+        <p class="coin">&#11088;</p>
+      </div>      
+      <div class="big item8">
+        <p class="coin">&#11088;</p>
+      </div>      
+      <div class="big item9">
+        <p class="coin">&#11088;</p>
+      </div>      
+      <div class="big item10">
+        <p class="coin">&#11088;</p>
+      </div>
+
+
+    </div>
+
+
+
+    <script>
+
+        // Function to load titles and images using fetch API
+        function loadTitlesAndImages() {
+            fetch("https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment-1")
+                .then(response => response.json())
+                .then(data => {
+                    let titlesContainer = document.querySelectorAll('.titlesContainer');
+                    dataResult = data.data.results;
+
+                    // Loop through the first 3 items in the data
+                    // for (let i = 0; i < 3; i++) {
+                    //     let titlediv = document.createElement('div');// Create a div element for title
+                    //     titlediv.className = "smalltext"
+                    //     titlediv.textContent = dataResult[i]["stitle"];
+                    //     titlesContainer[i].appendChild(titlediv);
+                    // }
+                    let imagesContainer = document.querySelectorAll('.smalltext');
+                    for (let i = 0; i < 3; i++) {
+                        let image = document.createElement('img');
+                        image.src = "http://" + dataResult[i]["filelist"].split("https:\/\/")[1];
+                        image.style.width="80px";
+                        image.style.height="50px";
+                        image.className="small"
+                        titlesContainer[i].appendChild(image);
+                        let titlediv = document.createElement('div'); 
+                        titlediv.className = "smalltext";
+                        titlediv.textContent = dataResult[i]["stitle"];
+                        titlesContainer[i].appendChild(titlediv);
+                    }
+                    let titlesContainerdiv = document.querySelectorAll('.big');
+                    for(let i=0; i<10; i++){
+                        let bigImgDiv = document.createElement('div');
+                        bigImgDiv.className="image-container";
+
+                        let bigImg = document.createElement('img');
+                        bigImg.src= "http://" + dataResult[i+3]["filelist"].split("https:\/\/")[1];
+                        bigImgDiv.appendChild(bigImg);
+                        titlesContainerdiv[i].appendChild(bigImgDiv);
+
+                    }
+                    for (let i=0; i<10;i++){
+                        let titleBigDiv = document.createElement('div');
+                        titleBigDiv.className="text-container";
+
+
+                        let titleBig=document.createElement("p");
+                        titleBig.className="title";
+                        titleBig.textContent = dataResult[i+3]["stitle"];
+                        titleBigDiv.appendChild(titleBig); // Append the <p> element to the <div> element
+                        titlesContainerdiv[i].appendChild(titleBigDiv); // Append the <div> element to the container
+                    }
+
+                
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                });
+        }
+
+        // Call the function to load titles and images
+        loadTitlesAndImages();
+
+
+
+        function showSidebar(){
+            const sidebar= document.querySelector('.sidebar');
+            sidebar.style.display= "flex";
+          }
+          function hideSidebar(){
+            const sidebar= document.querySelector('.sidebar');
+            sidebar.style.display= "none";
+          }
+    </script>
+</body>
+
+</html>
