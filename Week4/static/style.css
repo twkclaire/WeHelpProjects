@@ -1,0 +1,30 @@
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+   } 
+   
+.headline{
+    background-color:darkblue;
+    color:white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    height: 20%vh;
+    height: 10rem; /*setting height line-height the same will help text vertically centered */
+    line-height: 10rem;
+}
+
+.view{
+    background-color: white;
+    text-align: center;
+
+  
+}
+
+.field{
+    margin:10px;
+    font-size: 30px;
+}
+
