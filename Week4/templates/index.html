@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="../static/style.css">
+  </head>
+  <body>
+        <header class="headline">歡迎光臨，請輸入帳號密碼</header>
+        <section class="view">
+            <form action="/signin" method="POST"id="signin-form">
+            <div class="field"><span>登入系統</span></div> 
+            <div class="field"><span class="field-name">電子郵件</span><input type="text" name="email"/></div>
+            <div class="field"><span class="field-name">你的密碼</span><input type="password" name="password" /></div>
+            <div class="field"><span>同意條款</span><input id="field_terms" onchange="this.setCustomValidity(validity.valueMissing ? 'Please indicate that you accept the Terms and Conditions' : ''); "type="checkbox"></div>
+            <div class="field">
+                <button name="btn">登入</button>
+                <div class="error" id="signin-error"></div>
+            </div>
+        </form> 
+        </section> 
+ 
+	<script>
+      document.getElementById("field_terms").setCustomValidity("Please indicate that you accept the Terms and Conditions");
+  </script>
+  </body>
+</html>
+
+<!-- <div class="field"><span class="field-name">電子郵件</span><input type="email" name="email" required> /></div>
+<div class="field"><span class="field-name">你的密碼</span><input type="password" name="password" required /></div> -->
