@@ -115,4 +115,11 @@ Insert arbitrary data which will be later used to join member table
 
 
 ● Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages where sender username equals to test.
+![Screenshot 2024-05-01 at 12 32 12](https://github.com/twkclaire/WeHelpProjects/assets/163644958/4523863f-643b-416a-9bce-cd41ebde5593)
+
+
+
+
+
 ● Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages GROUP BY sender username.
+![Screenshot 2024-05-01 at 12 32 36](https://github.com/twkclaire/WeHelpProjects/assets/163644958/831b127a-1511-43d9-883c-a03d70203ff1)
