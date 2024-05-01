@@ -2,11 +2,11 @@
 
 Task 2 
 
-Create a new database named website
+●Create a new database named website
 
 <img width="1174" alt="Screenshot 2024-05-01 at 11 46 57" src="https://github.com/twkclaire/WeHelpProjects/assets/163644958/6bbe2461-d1ad-42ea-8903-973e5cf00e3d">
 
-Create a new table named member, in the website database
+●Create a new table named member, in the website database
 ![Screenshot 2024-05-01 at 12 02 45](https://github.com/twkclaire/WeHelpProjects/assets/163644958/e95f45b2-ffe3-4231-b2d0-d9b682124766)
 
 
@@ -62,5 +62,35 @@ Task 3
 
 
 
+
 ● UPDATE data in name column to test2 where username equals to test.
 ![Screenshot 2024-05-01 at 12 11 07](https://github.com/twkclaire/WeHelpProjects/assets/163644958/35fccb08-26e9-4bcd-8469-e43e6be9986a)
+
+
+
+
+
+
+
+
+
+Task 4
+
+● SELECT how many rows from the member table.
+![Screenshot 2024-05-01 at 12 18 12](https://github.com/twkclaire/WeHelpProjects/assets/163644958/f261f748-75f7-450c-b449-25de280b6714)
+
+
+● SELECT the sum of follower_count of all the rows from the member table.
+![Screenshot 2024-05-01 at 12 18 36](https://github.com/twkclaire/WeHelpProjects/assets/163644958/f634406f-49f4-482d-8f5a-ab98a68c486c)
+
+
+
+● SELECT the average of follower_count of all the rows from the member table.
+![Screenshot 2024-05-01 at 12 18 53](https://github.com/twkclaire/WeHelpProjects/assets/163644958/cc0a0392-e091-4afc-b97f-4d8884390108)
+
+
+
+● SELECT the average of follower_count of the first 2 rows, in descending order of follower_count, from the member table.
+![Screenshot 2024-05-01 at 12 19 09](https://github.com/twkclaire/WeHelpProjects/assets/163644958/90e11555-43d4-44ac-b454-169eab098b01)
+
+
