@@ -94,3 +94,23 @@ Task 4
 ![Screenshot 2024-05-01 at 12 19 09](https://github.com/twkclaire/WeHelpProjects/assets/163644958/90e11555-43d4-44ac-b454-169eab098b01)
 
 
+
+
+Task5 
+● Create a new table named message, in the website database.
+![Screenshot 2024-05-01 at 12 24 26](https://github.com/twkclaire/WeHelpProjects/assets/163644958/c79d9ba0-f3e4-41bf-80bb-5948637ffa96)
+
+Insert arbitrary data which will be later used to join member table
+![Screenshot 2024-05-01 at 12 25 06](https://github.com/twkclaire/WeHelpProjects/assets/163644958/6e46d566-ed1e-4479-a858-a0f9e49649f0)
+
+
+● SELECT all messages, including sender names. We have to JOIN the member table to get that.
+![Screenshot 2024-05-01 at 12 27 14](https://github.com/twkclaire/WeHelpProjects/assets/163644958/41e22519-602e-422a-8986-429692b84329)
+
+
+● SELECT all messages, including sender names, where sender username equals to test. We have to JOIN the member table to filter and get that.
+
+
+
+● Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages where sender username equals to test.
+● Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages GROUP BY sender username.
