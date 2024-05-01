@@ -109,6 +109,8 @@ Insert arbitrary data which will be later used to join member table
 
 
 ● SELECT all messages, including sender names, where sender username equals to test. We have to JOIN the member table to filter and get that.
+![Screenshot 2024-05-01 at 12 29 48](https://github.com/twkclaire/WeHelpProjects/assets/163644958/f4960bf7-d789-4371-88ed-ce56dd8ae644)
+
 
 
 
