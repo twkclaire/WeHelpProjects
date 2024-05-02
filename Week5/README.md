@@ -38,7 +38,7 @@ Task 3
 
 
 ● SELECT rows where username equals to test.
-![Screenshot 2024-05-01 at 12 09 50](https://github.com/twkclaire/WeHelpProjects/assets/163644958/d6cf952b-419a-4daa-929a-08f2db351cb0)
+![Screenshot 2024-05-02 at 18 36 58](https://github.com/twkclaire/WeHelpProjects/assets/163644958/0db821f9-0670-46fe-920a-935064d6ccfa)
 
 
 
