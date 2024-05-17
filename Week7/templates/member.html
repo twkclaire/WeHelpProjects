@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>會員頁</title>
+    <link rel="stylesheet" href="../static/style.css">
+  </head>
+  <body>
+    <main>
+        <header class="headline">歡迎光臨，這是會員頁</header>
+        <section class="view">
+            <form id="signin-form">
+            <div class="field" id="welcome"><span>{{name}}，歡迎登入系統</span></div> 
+            <div class="field">
+              <div><a href="/signout">登出系統</a></div>
+            </div>
+          </form> 
+        </section>
+
+
+         <section class="view">
+          <form action="/createMessage" method="POST">
+            <div class="field"><span>快來留言吧</span></div>
+            <div class="wrapper">
+            <div class="field"><span class="field-name">內容</span><input type="text" name="content"></div>
+            <div class="field">
+              <button name="btn">送出</button>
+            </div>
+            </div>
+          </form>
+        </section>
+         <section class="view">
+          {% for user, message,message_id in messages %}
+          <div><span>{{ user }}: {{ message }}</span>
+          {% if name == user %}
+          <button onclick="confirmDelete('{{message_id}}')"> x</button>
+          {% endif %}
+          </div>
+          {% endfor %}
+         </section>
+
+         <section class="view">
+          <div class="field"><span>查詢會員姓名</span></div> 
+          <div class="wrapper">
+          <div class="field userinput"><span class="field-name"></span><input id="username_input" type="text" name="check_username" placeholder="請輸入姓名" required></div>
+          <button class="search" onclick="checkUsername(event)" type="submit" name="btn">查詢</button>
+          </div>
+          <div id="checked"></div>
+                
+         </section> 
+         <section class="view">
+           <div class="field"><span>更新我的姓名</span></div> 
+           <div class="wrapper">
+          <div class="field userinput"><span class="field-name"></span><input id="newname_input" type="text" name="" placeholder="新的姓名" required></div>
+          <button class="search" onclick="updateName()" type="submit" name="btn">查詢</button>
+         </div>
+          <div id="updatestatus"></div>
+                
+         </section> 
+        </main>      
+        <script>
+          function updateName(){
+
+            let updateName=document.getElementById('newname_input').value
+
+            fetch('/api/member',{
+              method:'PATCH',
+              headers:{
+                'Content-Type':'application/json',
+              },
+              body:JSON.stringify({ name: updateName }),
+            })
+            .then(response=>{
+              if(!response.ok){
+                throw new Error('Failed');
+              }
+              return response.json();
+            })
+            .then(data=>{
+              if (data.hasOwnProperty('ok')){
+              console.log(data);
+              document.getElementById('updatestatus').innerText="更新成功"
+              document.getElementById('welcome').innerHTML = `<span>${updateName}，歡迎登入系統</span>`
+
+              }
+              else{
+                document.getElementById('updatestatus').innerText="更新失敗"
+              }
+
+            })
+            .catch(error =>{
+                console.log(error)
+              })
+
+          }
+           
+          function checkUsername(event){
+            event.preventDefault();
+            let usernameInput=document.getElementById('username_input').value
+            fetch(`/api/member?check_username=${usernameInput}`)
+              .then(response=> response.json())
+              .then(data =>{
+                checkUser=data.data
+                theUsername=data.data.username
+                theName= data.data.name
+                if(checkUser !=="null"){
+                  output=`${theName}(${theUsername})`
+                  document.getElementById('checked').innerText = output;
+                } else if(checkUser=="null"){
+                  document.getElementById('checked').innerText ="No Data!";
+                } else{
+                  document.getElementById('checked').innerText ="Something went wrong!"
+                }
+
+              })
+              .catch(error =>{
+                console.log(error)
+              })
+          }
+
+
+          function confirmDelete(id){
+            let x=prompt('Are you sure you want to delete this message? (y/n)').toLowerCase();
+            if (x== 'y'){          
+              const url = '/deleteMessage';
+
+              let data = {
+                message_id: id
+              }
+              
+              let fetchData = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: new Headers({
+                  'Content-Type': 'application/json; charset=UTF-8'
+                })
+              }
+              
+              fetch(url, fetchData)
+                .then(()=>{
+                  window.location.reload();
+                });
+              } 
+          }  
+
+
+        </script>
+  </body>
+</html>

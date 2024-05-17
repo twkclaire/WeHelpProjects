@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="../static/style.css">
+  </head>
+  <body>
+        <header class="headline">歡迎光臨，請註冊登入系統</header>
+        <section class="view">
+          <form action="/signup" method="POST" id="signin-form">
+          <div class="field"><span>註冊系統</span></div> 
+          <div class="field"><span class="field-name">姓名</span><input type="text" name="name" required></div>
+          <div class="field"><span class="field-name">帳號</span><input type="text" name="username" required></div>
+          <div class="field"><span class="field-name">密碼</span><input type="password" name="password" required></div>
+          <div class="field">
+              <button name="btn">註冊</button>
+              <div class="error" id="signin-error"></div>
+          </div>
+          </form> 
+      </section> 
+
+        <section class="view">
+            <form action="/signin" method="POST"id="signin-form">
+            <div class="field"><span>登入系統</span></div> 
+            <div class="field"><span class="field-name">帳號</span><input type="text" name="username" required></div>
+            <div class="field"><span class="field-name">密碼</span><input type="password" name="password" required></div>
+            <div class="field">
+                <button name="btn">登入</button>
+                <div class="error" id="signin-error"></div>
+            </div>
+            </form> 
+        </section> 
+ 
+	<script>
+
+  </script>
+  </body>
+</html>
+
+<!-- <div class="field"><span class="field-name">電子郵件</span><input type="email" name="email" required> /></div>
+<div class="field"><span class="field-name">你的密碼</span><input type="password" name="password" required /></div> -->
