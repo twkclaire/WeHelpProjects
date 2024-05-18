@@ -171,14 +171,12 @@ class update_name(BaseModel):
 
 @app.patch("/api/member")
 def update_name(request: Request,newname:update_name):
-    # print(newname.name)
      id=request.session.get("id")   
-     oldname=request.session.get("name")
-     if id is not None:
+     if id is not None: #check user status
         name=newname.name
         mycursor= mydb.cursor()
-        sql ="Update member SET name=%s WHERE name=%s"
-        val=(name,oldname)
+        sql ="Update member SET name=%s WHERE id=%s" #use unique value to find the right data
+        val=(name,id)
         mycursor.execute(sql,val)
         mydb.commit()
         request.session.update({ "name": name})
