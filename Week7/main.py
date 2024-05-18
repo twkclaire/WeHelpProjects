@@ -120,12 +120,16 @@ async def deleteMessage(request: Request, item:Item):
         return RedirectResponse(url=f"/error?message=要登入歐", status_code=status.HTTP_302_FOUND)
 
 
+# Member Query API 的輸入格式是 username=要查詢的帳戶名稱，請按照任務指示完成。
+# {"data":"null"} 和 {"data":null} 是不同的東西。
+
+
 #return the whole json to the frontend under the part where I can search username
 @app.get("/api/member", response_class=HTMLResponse)    
-def checkMember(request: Request,check_username:str = Query(None)):
+def checkMember(request: Request,username:str = Query(None)):
     mycursor= mydb.cursor()
     sql="SELECT id, name, username From member WHERE username=%s"
-    sql_data=(check_username,)
+    sql_data=(username,)
     mycursor.execute(sql,sql_data)
     matchuser=mycursor.fetchone()
     member_id=request.session.get("id")
@@ -139,7 +143,7 @@ def checkMember(request: Request,check_username:str = Query(None)):
         json_compatible_info=jsonable_encoder(info)
         return JSONResponse(content=json_compatible_info)
     else: 
-        info = {"data":"null"}
+        info = {"data":None}
         json_compatible_info=jsonable_encoder(info)
         return JSONResponse(content=json_compatible_info)
 
@@ -161,15 +165,16 @@ def allMember():
         all_members[id] = member_info
     return all_members
         
-
+# 因為姓名並非獨一無二的欄位，我們不會以姓名為依據去篩選要更新的資料。
 class update_name(BaseModel):
     name:str= Query(None)
 
 @app.patch("/api/member")
 def update_name(request: Request,newname:update_name):
     # print(newname.name)
+     id=request.session.get("id")   
      oldname=request.session.get("name")
-     if oldname is not None:
+     if id is not None:
         name=newname.name
         mycursor= mydb.cursor()
         sql ="Update member SET name=%s WHERE name=%s"
