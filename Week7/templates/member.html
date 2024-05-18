@@ -99,19 +99,16 @@
           function checkUsername(event){
             event.preventDefault();
             let usernameInput=document.getElementById('username_input').value
-            fetch(`/api/member?check_username=${usernameInput}`)
+            fetch(`/api/member?username=${usernameInput}`)
               .then(response=> response.json())
               .then(data =>{
-                checkUser=data.data
-                theUsername=data.data.username
-                theName= data.data.name
-                if(checkUser !=="null"){
+                if(data.data){
+                  theUsername=data.data.username
+                  theName= data.data.name
                   output=`${theName}(${theUsername})`
                   document.getElementById('checked').innerText = output;
-                } else if(checkUser=="null"){
-                  document.getElementById('checked').innerText ="No Data!";
                 } else{
-                  document.getElementById('checked').innerText ="Something went wrong!"
+                  document.getElementById('checked').innerText ="No data!"
                 }
 
               })
